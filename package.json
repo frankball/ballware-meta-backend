@@ -1,6 +1,6 @@
 {
     "name": "@ballware/meta-backend",
-    "version": "6.0.0-alpha1",
+    "version": "6.0.0-alpha4",
     "description": "Ballware Application Builder - Client for metadata provider backend",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",

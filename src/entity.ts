@@ -1,5 +1,5 @@
 import { MetaEntityApi, CompiledEntityMetadata, GridLayout, EditLayout, DocumentSelectEntry } from '@ballware/meta-interface';
-import JSON5 from 'json5';
+import * as JSON5 from 'json5';
 import axios from 'axios';
 
 interface EntityMetadata {

@@ -1,6 +1,6 @@
 import { MetaStatisticApi, CompiledStatistic, CompiledStatisticCustomScripts, StatisticLayout } from '@ballware/meta-interface';
 import { paramsToUrl } from './util';
-import JSON5 from 'json5';
+import * as JSON5 from 'json5';
 import axios from 'axios';
 
 interface Statistic {
