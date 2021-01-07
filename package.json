@@ -6,11 +6,11 @@
   "author": "frank@ballmeyer.com",
   "homepage": "https://github.com/frankball/ballware-meta-backend#readme",
   "repository": {
-      "type": "git",
-      "url": "git+https://github.com/frankball/ballware-meta-backend.git"
+    "type": "git",
+    "url": "git+https://github.com/frankball/ballware-meta-backend.git"
   },
   "bugs": {
-      "url": "https://github.com/frankball/ballware-meta-backend/issues"
+    "url": "https://github.com/frankball/ballware-meta-backend/issues"
   },
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
