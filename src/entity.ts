@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright 2021 Frank Ballmeyer
+ * This code is released under the MIT license.
+ * SPDX-License-Identifier: MIT
+ */
+
 import {
   MetaEntityApi,
   CompiledEntityMetadata,
@@ -40,9 +47,6 @@ interface EntityCustomScripts {
   detailGridCellPreparing?: string;
   detailGridRowValidating?: string;
   initNewDetailItem?: string;
-  paramEditorInitialized?: string;
-  paramEditorValueChanged?: string;
-  paramEditorEvent?: string;
   prepareCustomFunction?: string;
   evaluateCustomFunction?: string;
 }
@@ -444,81 +448,6 @@ const compileEntityMetadata = (
         : undefined;
     }
 
-    if (customScripts.paramEditorInitialized) {
-      const compiledArgs = ['name', 'editUtil', 'lookups', 'util', 'actions'];
-      const compiledFn = Function.apply(
-        Function,
-        compiledArgs.concat(customScripts.paramEditorInitialized)
-      );
-
-      compiledMetaData.compiledCustomScripts.paramEditorInitialized = compiledFn
-        ? (name, editUtil, lookups, util, actions) =>
-            compiledFn.apply(compiledFn, [
-              name,
-              editUtil,
-              lookups,
-              util,
-              actions,
-            ])
-        : undefined;
-    }
-
-    if (customScripts.paramEditorValueChanged) {
-      const compiledArgs = [
-        'name',
-        'value',
-        'editUtil',
-        'lookups',
-        'util',
-        'actions',
-      ];
-      const compiledFn = Function.apply(
-        Function,
-        compiledArgs.concat(customScripts.paramEditorValueChanged)
-      );
-
-      compiledMetaData.compiledCustomScripts.paramEditorValueChanged = compiledFn
-        ? (name, value, editUtil, lookups, util, actions) =>
-            compiledFn.apply(compiledFn, [
-              name,
-              value,
-              editUtil,
-              lookups,
-              util,
-              actions,
-            ])
-        : undefined;
-    }
-
-    if (customScripts.paramEditorEvent) {
-      const compiledArgs = [
-        'name',
-        'event',
-        'editUtil',
-        'lookups',
-        'util',
-        'actions',
-        'param',
-      ];
-      const compiledFn = Function.apply(
-        Function,
-        compiledArgs.concat(customScripts.paramEditorEvent)
-      );
-
-      compiledMetaData.compiledCustomScripts.paramEditorEvent = compiledFn
-        ? (name, event, editUtil, lookups, util, actions, param) =>
-            compiledFn.apply(compiledFn, [
-              name,
-              event,
-              editUtil,
-              lookups,
-              util,
-              actions,
-              param,
-            ])
-        : undefined;
-    }
-
     if (customScripts.prepareCustomFunction) {
       const compiledArgs = [
         'identifier',
@@ -615,6 +544,11 @@ const documentsForEntityFunc = (serviceBaseUrl: string) => (
     .then(response => response.data);
 };
 
+/**
+ * Create adapter for entity metadata operations with ballware.meta.service
+ * @param serviceBaseUrl Base URL to connect to ballware.meta.service
+ * @returns Adapter object providing data operations
+ */
 export function createMetaBackendEntityApi(
   serviceBaseUrl: string
 ): MetaEntityApi {

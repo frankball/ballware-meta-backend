@@ -1,3 +1,5 @@
+@ballware/meta-backend / [Exports](modules.md)
+
 Provides a ballware meta interface adapter for connecting ballware app to ballware.meta.server for meta data access.
 
 ## ballware application builder

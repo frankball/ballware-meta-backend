@@ -1,13 +1,20 @@
-import { MetaGenericEntityApi, CrudItem } from '@ballware/meta-interface';
+/**
+ * @license
+ * Copyright 2021 Frank Ballmeyer
+ * This code is released under the MIT license.
+ * SPDX-License-Identifier: MIT
+ */
+
+import { MetaGenericEntityApi, CrudItem, QueryParams } from '@ballware/meta-interface';
 import { paramsToUrl } from './util';
 import axios from 'axios';
 
 const queryFunc = (baseUrl: string) => (
   token: string,
   query: string,
-  params?: object
+  params?: QueryParams
 ): Promise<Array<CrudItem>> => {
-  const queryParams = paramsToUrl(params);
+  const queryParams = params ? paramsToUrl(params) : undefined;
 
   const url = queryParams
     ? `${baseUrl}/query/${query}${queryParams}`
@@ -31,9 +38,9 @@ const byIdFunc = (baseUrl: string) => (
 
 const newFunc = (baseUrl: string) => (
   token: string,
-  params?: object
+  params?: QueryParams
 ): Promise<CrudItem> => {
-  const queryParams = paramsToUrl(params);
+  const queryParams = params ? paramsToUrl(params) : undefined;
 
   const url = queryParams
     ? `${baseUrl}/newquery${queryParams}`
@@ -81,15 +88,20 @@ const removeFunc = (baseUrl: string) => (
   return axios.delete(url, { headers: { Authorization: `Bearer ${token}` } });
 };
 
+/**
+ * Create adapter for generic entity data operations with ballware.meta.service
+ * @param serviceBaseUrl Base URL to connect to ballware.meta.service
+ * @returns Adapter object providing data operations
+ */
 export function createMetaBackendGenericEntityApi(
   entityBaseUrl: string
 ): MetaGenericEntityApi {
   return {
-    entityQuery: queryFunc(entityBaseUrl),
-    entityById: byIdFunc(entityBaseUrl),
-    entityNew: newFunc(entityBaseUrl),
-    entitySave: saveFunc(entityBaseUrl),
-    entitySaveBatch: saveBatchFunc(entityBaseUrl),
-    entityRemove: removeFunc(entityBaseUrl),
+    query: queryFunc(entityBaseUrl),
+    byId: byIdFunc(entityBaseUrl),
+    new: newFunc(entityBaseUrl),
+    save: saveFunc(entityBaseUrl),
+    saveBatch: saveBatchFunc(entityBaseUrl),
+    drop: removeFunc(entityBaseUrl),
   } as MetaGenericEntityApi;
 }

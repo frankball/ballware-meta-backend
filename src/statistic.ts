@@ -1,8 +1,16 @@
+/**
+ * @license
+ * Copyright 2021 Frank Ballmeyer
+ * This code is released under the MIT license.
+ * SPDX-License-Identifier: MIT
+ */
+
 import {
   MetaStatisticApi,
   CompiledStatistic,
   CompiledStatisticCustomScripts,
   StatisticLayout,
+  QueryParams,
 } from '@ballware/meta-interface';
 import { paramsToUrl } from './util';
 import * as JSON5 from 'json5';
@@ -106,7 +114,7 @@ const metadataFunc = (serviceBaseUrl: string) => (
 const dataFunc = (serviceBaseUrl: string) => (
   token: string,
   identifier: string,
-  params: Record<string, unknown>
+  params: QueryParams
 ): Promise<Array<Record<string, unknown>>> => {
   const url = `${serviceBaseUrl}api/statistic/dataforidentifier/${identifier}/${paramsToUrl(
     params
@@ -119,6 +127,11 @@ const dataFunc = (serviceBaseUrl: string) => (
     .then(response => response.data);
 };
 
+/**
+ * Create adapter for statistic fetch operations with ballware.meta.service
+ * @param serviceBaseUrl Base URL to connect to ballware.meta.service
+ * @returns Adapter object providing data operations
+ */
 export function createMetaBackendStatisticApi(
   serviceBaseUrl: string
 ): MetaStatisticApi {

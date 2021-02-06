@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright 2021 Frank Ballmeyer
+ * This code is released under the MIT license.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { MetaPickvalueApi } from '@ballware/meta-interface';
 import axios from 'axios';
 
@@ -29,6 +36,11 @@ const selectByValueForEntityAndField = (serviceBaseUrl: string) => (
     .then(response => response.data);
 };
 
+/**
+ * Create adapter for pickvalue fetch operations with ballware.meta.service
+ * @param serviceBaseUrl Base URL to connect to ballware.meta.service
+ * @returns Adapter object providing data operations
+ */
 export function createMetaBackendPickvalueApi(
   serviceBaseUrl: string
 ): MetaPickvalueApi {

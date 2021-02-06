@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright 2021 Frank Ballmeyer
+ * This code is released under the MIT license.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { MetaPageApi, CompiledPageData } from '@ballware/meta-interface';
 import * as JSON5 from 'json5';
 import axios from 'axios';
@@ -176,6 +183,11 @@ const pageDataForIdentifier = (metaServiceBaseUrl: string) => (
     .then(response => compilePage(response.data));
 };
 
+/**
+ * Create adapter for page fetch operations with ballware.meta.service
+ * @param serviceBaseUrl Base URL to connect to ballware.meta.service
+ * @returns Adapter object providing data operations
+ */
 export function createMetaBackendPageApi(
   metaServiceBaseUrl: string
 ): MetaPageApi {

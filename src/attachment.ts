@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright 2021 Frank Ballmeyer
+ * This code is released under the MIT license.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { MetaAttachmentApi } from '@ballware/meta-interface';
 import axios from 'axios';
 
@@ -55,13 +62,18 @@ const attachmentDeleteFunc = (serviceBaseUrl: string) => (
   return axios.delete(url, { headers: { Authorization: `Bearer ${token}` } });
 };
 
+/**
+ * Create adapter for attachment data operations with ballware.meta.service
+ * @param serviceBaseUrl Base URL to connect to ballware.meta.service
+ * @returns Adapter object providing data operations
+ */
 export function createMetaBackendAttachmentApi(
   serviceBaseUrl: string
 ): MetaAttachmentApi {
   return {
-    attachmentFetch: attachmentFetchFunc(serviceBaseUrl),
-    attachmentUpload: attachmentUploadFunc(serviceBaseUrl),
-    attachmentOpen: attachmentOpenFunc(serviceBaseUrl),
-    attachmentDelete: attachmentDeleteFunc(serviceBaseUrl),
+    queryByOwner: attachmentFetchFunc(serviceBaseUrl),
+    upload: attachmentUploadFunc(serviceBaseUrl),
+    open: attachmentOpenFunc(serviceBaseUrl),
+    remove: attachmentDeleteFunc(serviceBaseUrl),
   } as MetaAttachmentApi;
 }

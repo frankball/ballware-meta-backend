@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright 2021 Frank Ballmeyer
+ * This code is released under the MIT license.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { MetaDocumentApi, DocumentSelectEntry } from '@ballware/meta-interface';
 import axios from 'axios';
 
@@ -25,6 +32,11 @@ const viewerUrl = (documentServiceBaseUrl: string) => (
   return Promise.resolve(url);
 };
 
+/**
+ * Create adapter for document data operations with ballware.meta.service
+ * @param serviceBaseUrl Base URL to connect to ballware.meta.service
+ * @returns Adapter object providing data operations
+ */
 export function createMetaBackendDocumentApi(
   metaServiceBaseUrl: string,
   documentServiceBaseUrl: string
